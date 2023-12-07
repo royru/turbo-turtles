@@ -10,8 +10,12 @@ export default async function handler(request: VercelRequest, response: VercelRe
       token: process.env.USERS_REST_API_TOKEN as string,
     })
 
-    await users.set('sheena', '{ name: sheena, steps: 10 }', { ex: 100, nx: true })
+    console.log(process.env.USERS_REST_API_URL)
+    console.log(process.env.USERS_REST_API_TOKEN)
+
+    await users.set('sheena', '{ name: sheena, steps: 10 }')
     console.log('set sheena')
+
   } catch (error) {
     console.log(error)
   }
