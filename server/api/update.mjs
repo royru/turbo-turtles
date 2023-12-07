@@ -1,10 +1,8 @@
 // https://turbo-turtles.vercel.app/api/update?user=roy&steps=5
 
-import type { VercelRequest, VercelResponse } from '@vercel/node'
-
 export default function handler(
-  request: VercelRequest,
-  response: VercelResponse,
+  request,
+  response,
 ) {
 
   const user = request.query.user
