@@ -1,4 +1,4 @@
-import { createClient } from '@vercel/kv'
+import { createClient, kv } from '@vercel/kv'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
@@ -8,14 +8,11 @@ export default async function handler(request: VercelRequest, response: VercelRe
   console.log(process.env.KV_REST_API_TOKEN)
 
   try {
-    const users = createClient({
-      url: process.env.KV_REST_API_URL as string,
-      token: process.env.KV_REST_API_TOKEN as string,
-    })
 
-    await users.set('sheena', '{ name: sheena, steps: 10 }')
-    console.log('set sheena')
+    await kv.set("user_1_session", "session_token_value")
 
+    const session = await kv.get("user_1_session")
+    console.log(session)
   } catch (error) {
     console.log(error)
   }
