@@ -1,10 +1,19 @@
-// https://turbo-turtles.vercel.app/update?user=roy&steps=5
+// https://turbo-turtles.vercel.app/api/update?user=roy&steps=5
 
-import { NowRequest, NowResponse } from '@vercel/node'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-export default async (req: NowRequest, res: NowResponse) => {
-  const user = req.query.user
-  const steps = req.query.steps
+export default function handler(
+  request: VercelRequest,
+  response: VercelResponse,
+) {
+
+  const user = request.query.user
+  const steps = request.query.steps
   console.log(`user: ${user}, steps: ${steps}`)
-  return res.status(200).send(`user: ${user}, steps: ${steps}`)
+
+  response.status(200).json({
+    body: request.body,
+    query: request.query,
+    cookies: request.cookies,
+  })
 }
