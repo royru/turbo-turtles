@@ -1,21 +1,21 @@
-import { createClient, kv } from '@vercel/kv'
+import { createClient } from '@vercel/kv'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   console.log('hiiii')
 
   try {
-    await kv.set('sheena', '{ name: sheena, steps: 10 }', { ex: 100, nx: true })
+    const users = createClient({
+      url: process.env.USERS_REST_API_URL as string,
+      token: process.env.USERS_REST_API_TOKEN as string,
+    })
+
+    await users.set('sheena', '{ name: sheena, steps: 10 }', { ex: 100, nx: true })
     console.log('set sheena')
   } catch (error) {
     console.log(error)
   }
 
-
-  // const users = createClient({
-  //   url: process.env.USERS_REST_API_URL,
-  //   token: process.env.USERS_REST_API_TOKEN,
-  // });
 
   // Create a helper function to get an environment variable with a default value
   // const getEnvVar = (name, defaultValue) => {
