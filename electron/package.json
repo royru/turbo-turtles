@@ -3,6 +3,7 @@
   "productName": "Turbo Turtles",
   "version": "1.0.0",
   "description": "Turbo Turtles Client",
+  "type": "module",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
