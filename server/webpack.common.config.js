@@ -53,14 +53,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      __BASIC_PLAN_ID_STRIPE__: JSON.stringify(process.env.BASIC_PLAN_ID_STRIPE),
-      __ORCHID_PLAN_ID_STRIPE__: JSON.stringify(process.env.ORCHID_PLAN_ID_STRIPE),
-      __BASIC_PRICE_ID_STRIPE__: JSON.stringify(process.env.BASIC_PRICE_ID_STRIPE),
-      __ORCHID_PRICE_ID_STRIPE__: JSON.stringify(process.env.ORCHID_PRICE_ID_STRIPE),
-      __PK_STRIPE__: JSON.stringify(process.env.PK_STRIPE)
-    }),
-    new Dotenv(), // resolves .env environment variables from vercel during development
     new HtmlWebpackPlugin({
       template: './src/index.pug',
       inject: true,
