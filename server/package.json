@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Turbo Turtles",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "build": "webpack  --config webpack.prod.config.js",
     "dev": "concurrently --kill-others \"npm run build-dev\" \"npm run prettier-watch\" \"npm run prettier-watch-css\"",
