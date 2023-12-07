@@ -6,4 +6,5 @@ export default async (req: NowRequest, res: NowResponse) => {
   const user = req.query.user
   const steps = req.query.steps
   console.log(`user: ${user}, steps: ${steps}`)
+  return res.status(200).send(`user: ${user}, steps: ${steps}`)
 }
