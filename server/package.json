@@ -2,7 +2,6 @@
   "name": "turbo-turtles",
   "version": "0.0.1",
   "description": "Turbo Turtles",
-  "type": "module",
   "main": "index.ts",
   "scripts": {
     "build": "webpack  --config webpack.prod.config.js",
