@@ -4,14 +4,14 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   console.log('hiiii')
 
+  console.log(process.env.KV_REST_API_URL)
+  console.log(process.env.KV_REST_API_TOKEN)
+
   try {
     const users = createClient({
-      url: process.env.USERS_REST_API_URL as string,
-      token: process.env.USERS_REST_API_TOKEN as string,
+      url: process.env.KV_REST_API_URL as string,
+      token: process.env.KV_REST_API_TOKEN as string,
     })
-
-    console.log(process.env.USERS_REST_API_URL)
-    console.log(process.env.USERS_REST_API_TOKEN)
 
     await users.set('sheena', '{ name: sheena, steps: 10 }')
     console.log('set sheena')
