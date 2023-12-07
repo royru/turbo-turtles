@@ -1,10 +1,8 @@
 import { createClient } from '@vercel/kv'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(
-   request,
-   response
-) {
+export default async function handler(request, response) {
+   console.log('hiiii')
    // Create a helper function to get an environment variable with a default value
    const getEnvVar = (name, defaultValue) => {
       return process.env[name] || defaultValue
