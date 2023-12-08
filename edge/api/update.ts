@@ -22,7 +22,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
       const users = users_str ? JSON.parse(users_str) : []
       users.push(user)
       console.log({ users })
-      await kv.sadd('111users ', JSON.stringify(users))
+      await kv.sadd('111users', JSON.stringify(users))
     }
     total_steps = total_steps + Number.parseInt(steps)
     await kv.set(user, total_steps.toString())
