@@ -131,7 +131,7 @@ async function fetchAndRender() {
       'https://turbo-turtles-edge.vercel.app/api/data',
       {
         method: 'GET',
-        mode: 'no-cors'
+        mode: 'cors'
       }
     )
     const data = await raw.json()
@@ -151,7 +151,7 @@ async function fetchAndRender() {
 }
 
 async function main() {
-  setInterval(fetchAndRender, 500)
+  setInterval(fetchAndRender, 1500)
 }
 
 main()
