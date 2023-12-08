@@ -19,11 +19,12 @@ export default async function handler(request: VercelRequest, response: VercelRe
     if (total_steps > 0) {
       total_steps = total_steps + Number.parseInt(steps)
     } else {
-      const users_str = await kv.get('111users') as string | undefined
+      const users_str = await kv.get('111users') as string | null
       console.log({ users_str })
       const users = users_str ? JSON.parse(users_str) : []
       users.push(user)
-      await kv.sadd('111users ', users)
+      console.log({ users })
+      await kv.sadd('111users ', JSON.stringify(users))
     }
     await kv.set(user, total_steps.toString())
     response.status(200).json({ user, steps: total_steps })
