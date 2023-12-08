@@ -5,7 +5,51 @@ html(lang="de")
       link(href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet")
       
       title Turbo Turtles
-
-
+      style.
+         .race-track {
+            margin-bottom: 5px;
+            position: relative;
+            width: 1000px; /* Set the width of the race track */
+         }
+         .progress-bar {
+            width: 100%; /* Width relative to the race track */
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+         }
+         .progress {
+            height: 40px;
+            border-radius: 5px;
+            position: relative;
+            color: #2f2f2f;
+            line-height: 20px;
+            text-align: left;
+            padding-left: 5px; /* Space for the label inside the bar */
+         }
+         img.turtle {
+            height: 40px;
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+         }
+         .vertical-line {
+            width: 2px;
+            height: 100%;
+            background-color: black;
+            position: absolute;
+            right: 0;
+            top: 0;
+         }
    body
-    h1 Hello World
+      h1 Turtle Raceee!
+
+      - var turtleNames = ["Alice", "Bob", "Charlie", "Daniela", "Earl"]
+      - var colors = ["#F2FBB9", "#E6F5FF", "#EED5F9", "#FDD8E4", "#FFE2B4"]
+
+      each val, index in [30, 20, 50, 10, 90]
+         div.race-track
+            div.progress-bar
+               div.progress(style=`width: ${val}%; background-color: ${colors[index]}`) #{turtleNames[index]}
+               img.turtle(src=`assets/turtle${index + 1}.svg` alt=`Turtle ${turtleNames[index]}` style=`left: ${val}%`)
+               div.vertical-line
