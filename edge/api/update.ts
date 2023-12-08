@@ -13,9 +13,10 @@ export default async function handler(request: VercelRequest, response: VercelRe
   }
 
   try {
-    let total_steps = Number.parseInt(await kv.get(user) as string)
+    let total_steps_str = await kv.get(user) as string
+    let total_steps = total_steps_str ? Number.parseInt(total_steps_str) : 0
     console.log({ total_steps })
-    if (total_steps) {
+    if (total_steps > 0) {
       total_steps = total_steps + Number.parseInt(steps)
     } else {
       total_steps = Number.parseInt(steps)
@@ -26,7 +27,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
       await kv.sadd('###users ', users)
     }
     await kv.set(user, total_steps.toString())
-    response.status(200)
+    response.status(200).json({ user, steps: total_steps })
   } catch (error) {
     console.log(error)
     return response.status(400).json({ error: "error updating steps" })
