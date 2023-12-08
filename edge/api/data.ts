@@ -1,4 +1,4 @@
-// https://turbo-turtles.vercel.app/api/update?user=roy&steps=5
+// https://turbo-turtles.vercel.app/api/data 
 
 import { kv } from '@vercel/kv'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
@@ -13,21 +13,19 @@ export default async function handler(request: VercelRequest, response: VercelRe
   }
 
   try {
-    let total_steps = await kv.get(user) as number
-    if (total_steps) {
-      total_steps = total_steps + Number.parseInt(steps)
-    } else {
-      total_steps = Number.parseInt(steps)
-      const users_str = await kv.get('###users') as string | undefined
-      const users = users_str ? JSON.parse(users_str) : []
-      users.push(user)
-      await kv.sadd('###users ', users)
+    const users_str = await kv.get('###users') as string | undefined
+    const users = users_str ? JSON.parse(users_str) : []
+    const data: { user: string, steps: number, color: string }[] = []
+
+    for (const user of users) {
+      const steps = await kv.get(user) as number
+      console.log(`user: ${user}, steps: ${steps}`)
+      data.push({ user, steps, color: 'blue' })
     }
-    await kv.set(user, total_steps.toString())
+
+    response.status(200).json(data)
+
   } catch (error) {
-    console.log(error)
     return response.status(400).json({ error: "error updating steps" })
   }
-
-  response.status(200)
 }
