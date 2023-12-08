@@ -161,7 +161,7 @@ async function fetchAndRender() {
       }
 
       // const raw = await fetch(
-      //    'https://turbo-turtles-edge.vercel.app/api/data',
+      //    'https://turbo-turtles-edge-sooty.vercel.app/api/data',
       //    {
       //       method: 'GET',
       //       mode: 'cors'

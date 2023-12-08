@@ -1,4 +1,4 @@
-// https://turbo-turtles-edge.vercel.app/api/update?user=roy&steps=5
+// https://turbo-turtles-edge-sooty.vercel.app/api/update?user=roy&steps=5
 
 import { kv } from '@vercel/kv'
 import type { VercelRequest, VercelResponse } from '@vercel/node'

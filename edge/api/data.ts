@@ -1,4 +1,4 @@
-// https://turbo-turtles-edge.vercel.app/api/data 
+// https://turbo-turtles-edge-sooty.vercel.app/api/data 
 
 import { kv } from '@vercel/kv'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
