@@ -1,5 +1,6 @@
 var render_count = 0
 var raceTrackWidth = 1000
+var winner = ''
 
 var total_steps_per_user: { [key: number]: number } = {
    1: 0,
@@ -27,15 +28,20 @@ var color_defs = {
    }
 }
 
-function getMaxScore() {
+function isThereAWinner() {
    let maxScore = 0
 
    for (let userId in total_steps_per_user) {
       if (total_steps_per_user.hasOwnProperty(userId)) {
          maxScore = Math.max(maxScore, total_steps_per_user[userId])
+         if (maxScore == total_steps_per_user[userId]) {
+            winner = userId
+         }
       }
    }
-   return maxScore
+   if (maxScore >= raceTrackWidth) {
+      return true
+   } else return false
 }
 
 console.log('hello')
@@ -47,7 +53,32 @@ function render(data: any) {
 
    console.log(data)
    const title = document.createElement('h1')
-   title.textContent = `Turtle Race! ${render_count}`
+   if (isThereAWinner()) {
+      console.log('There is a winner!')
+      console.log(`The winning ID is ${winner}`)
+      console.log(``)
+      // console.log(`Winning turtle object ${data[parseInt(winner)]}`)
+      const winnerId = parseInt(winner)
+      const winningTurtle = data.find(
+         (u: { id: number; name: string; steps: number; color: string }) =>
+            u.id === winnerId
+      )
+      const winningTurtleName = winningTurtle.name
+
+      // const user = data.find(u => u.id === parseInt(winner))
+      console.log(`Winning turtle object ${winningTurtle}`)
+
+      if (winningTurtleName) {
+         console.log('User found:', winningTurtleName)
+      } else {
+         console.log(`User with ID ${winnerId} not found.`)
+      }
+      // console.log(`Winning turtle name ${data[parseInt(winner)].name}`)
+      // const winnerTurtle = data[parseInt(winner)].name
+      title.textContent = `${winningTurtleName} won the race!`
+   } else {
+      title.textContent = `Turbo Turtles!`
+   }
    body.appendChild(title)
 
    for (let user of data) {
@@ -118,12 +149,14 @@ async function fetchAndRender() {
    try {
       render_count += 1
 
-      for (let userId in total_steps_per_user) {
-         if (total_steps_per_user.hasOwnProperty(userId)) {
-            // Use bracket notation with a type assertion
-            total_steps_per_user[parseInt(userId)] += Math.floor(
-               Math.random() * 6
-            )
+      if (!isThereAWinner()) {
+         for (let userId in total_steps_per_user) {
+            if (total_steps_per_user.hasOwnProperty(userId)) {
+               // Use bracket notation with a type assertion
+               total_steps_per_user[parseInt(userId)] += Math.floor(
+                  Math.random() * 200
+               )
+            }
          }
       }
 
@@ -137,13 +170,28 @@ async function fetchAndRender() {
       // const data = await raw.json()
       // console.log(data)
 
-      const data = [
+      type User = {
+         id: number
+         name: string
+         steps: number
+         color: string
+      }
+
+      const data: User[] = [
          { id: 1, name: 'Roy', steps: 5, color: 'green' },
          { id: 2, name: 'Anastasia', steps: 10, color: 'blue' },
          { id: 3, name: 'Sheena', steps: 15, color: 'purple' },
          { id: 4, name: 'Tarek', steps: 20, color: 'pink' },
          { id: 5, name: 'Sebastian', steps: 25, color: 'orange' }
       ]
+
+      // const data = [
+      //    { id: 1, name: 'Roy', steps: 5, color: 'green' },
+      //    { id: 2, name: 'Anastasia', steps: 10, color: 'blue' },
+      //    { id: 3, name: 'Sheena', steps: 15, color: 'purple' },
+      //    { id: 4, name: 'Tarek', steps: 20, color: 'pink' },
+      //    { id: 5, name: 'Sebastian', steps: 25, color: 'orange' }
+      // ]
       render(data)
    } catch (error) {
       console.error(error)
