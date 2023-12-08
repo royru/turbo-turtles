@@ -6,7 +6,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 export default async function handler(request: VercelRequest, response: VercelResponse) {
 
   try {
-    const users_str = await kv.get('users') as string | undefined
+    const users_str = await kv.get('111users') as string | undefined
     const users = users_str ? JSON.parse(users_str) : []
     const data: { name: string, steps: number, color: string }[] = []
 
